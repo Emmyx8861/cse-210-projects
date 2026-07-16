@@ -1,12 +1,1 @@
-Date: 7/11/2026
-Prompt: What was the strongest emotion I felt today?
-Response: Anger
-
-Date: 7/11/2026
-Prompt: What was the strongest emotion I felt today?
-Response: hate
-
-Date: 7/11/2026
-Prompt: What was the best part of my day?
-Response: morning
-
+7/16/2026,If I had one thing I could do over today, what would it be?,Talk to him

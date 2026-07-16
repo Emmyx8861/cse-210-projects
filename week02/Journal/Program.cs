@@ -12,6 +12,7 @@ class Program
          int currentStreak = myJournal.CalculateStreak();
           Console.WriteLine("Welcome to the Journal Program!");
           Console.WriteLine($"🔥 Current Daily Streak: {currentStreak} days 🔥");
+          /*I added the streak function to ensure the user is reminded of when they log in. */
           Console.WriteLine("Please select an option:");
           Console.WriteLine("1. Write a new entry");
           Console.WriteLine("2. Display all entries");
