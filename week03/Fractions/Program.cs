@@ -16,6 +16,9 @@ class Program
         fraction2.SetBottom(6);
         Console.WriteLine(fraction2.GetBottom());
         Console.WriteLine(fraction2.GetFractionString());
+        fraction2.SetTop(3);
+        fraction2.SetBottom(4);
+        Console.WriteLine(fraction2.GetDecimalValue());
         
     }
 }
