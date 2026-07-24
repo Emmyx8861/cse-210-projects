@@ -14,6 +14,7 @@ class Program
        video2.AddComment(new Comment("Alex", "Wanna Go."));
        video2.AddComment(new Comment("Maeve", "Surfing cool"));
        video2.AddComment(new Comment("Nathan"," Love surfing"));
+       //I used an encapsulation effect to simplify the process for the video details and adding comments to list//
 
        Video video3 = new Video("Streaming live","Raider", 780);
        video3.AddComment(new Comment("Suni", "Seding all my gifts"));
