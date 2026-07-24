@@ -1,12 +1,12 @@
 public class Comment
 {
-    public string name ="";
+    public string _name ="";
 
-    public string text="";
+    public string _text="";
 
     public Comment(string name, string text)
     {
-        this.name = name;
-        this.text = text;
+        _name = name;
+        _text = text;
     }
 }

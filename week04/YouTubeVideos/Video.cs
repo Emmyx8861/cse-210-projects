@@ -2,17 +2,17 @@ using System.Transactions;
 
 public class Video
 {
-    public string title="";
+    public string _title="";
 
-    public string author="";
+    public string _author="";
 
-    public int lengthinseconds=0;
+    public int _lengthinseconds=0;
 
     public Video(string title, string author, int lengthinseconds)
     {
-        this.title = title;
-        this.author = author;
-        this.lengthinseconds = lengthinseconds;
+        _title = title;
+        _author = author;
+        _lengthinseconds = lengthinseconds;
     }
 
     public List <Comment> comments = new List<Comment>();
