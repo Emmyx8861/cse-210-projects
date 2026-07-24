@@ -28,11 +28,11 @@ class Program
 
         foreach(Video video in videos)
         {
-            Console.WriteLine($"Title:{video.title}");
+            Console.WriteLine($"Title:{video._title}");
             Console.WriteLine();
-            Console.WriteLine($"Author:{video.author}");
+            Console.WriteLine($"Author:{video._author}");
             Console.WriteLine();
-            Console.WriteLine($"Length In Seconds:{video.lengthinseconds}");
+            Console.WriteLine($"Length In Seconds:{video._lengthinseconds}");
             Console.WriteLine();
             Console.WriteLine($"Number Of Comments: {video.GetCommentCount() }");
             Console.WriteLine();
@@ -40,7 +40,7 @@ class Program
             
             foreach (Comment comment in video.comments)
           {
-             Console.WriteLine($"  - {comment.name}: {comment.text}");
+             Console.WriteLine($"  - {comment._name}: {comment._text}");
           }
 
             Console.WriteLine();
