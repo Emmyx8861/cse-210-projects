@@ -48,7 +48,6 @@ public class Scripture
 
      return $"{_reference.GetDisplayText()} {scriptureText}";
     }
-
     public bool IsCompletelyHidden()
     {
       foreach (Word word in _words)
