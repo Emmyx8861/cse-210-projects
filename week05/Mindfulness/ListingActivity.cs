@@ -29,6 +29,7 @@ public class ListingActivity: Activity
         List<string> items = GetListFromUser();
         Console.WriteLine($"You listed {items.Count} items!");
         DisplayEndingMessage();
+        Program.listingCount++;
     }
 
     public void GetRandomPrompt()

@@ -23,5 +23,6 @@ public class BreathingActivity : Activity
             Console.WriteLine();
         }
         DisplayEndingMessage();
+        Program.breathingCount++;
     }
 }

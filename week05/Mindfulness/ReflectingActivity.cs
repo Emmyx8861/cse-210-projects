@@ -42,6 +42,7 @@ public class ReflectingActivity : Activity
         Console.WriteLine("Reflect on these questions:");
         GetRandomQuestions();
         DisplayEndingMessage();
+        Program.reflectingCount++;
     }
 
     public string GetRandomPrompt()

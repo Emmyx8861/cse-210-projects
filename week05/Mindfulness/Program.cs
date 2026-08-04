@@ -1,12 +1,13 @@
 using System;
 using System.IO;
+using System.Threading;
 
 class Program
 {
     static string filename = "mindfulness_log.txt";
-    static int breathingCount = 0;
-    static int reflectingCount = 0;
-    static int listingCount = 0;
+    public static int breathingCount = 0;
+    public static int reflectingCount = 0;
+    public static int listingCount = 0;
 
     static void Main(string[] args)
     {
@@ -15,7 +16,7 @@ class Program
         Console.WriteLine("Welcome to the Mindfulness Program.");
         Console.WriteLine("--- Activity Log ---");
         Console.WriteLine($"Breathing: {breathingCount} | Reflecting: {reflectingCount} | Listing: {listingCount}\n");
-        
+
         string input = "";
         do
         {
@@ -24,8 +25,10 @@ class Program
             Console.WriteLine("1. Breathing Activity");
             Console.WriteLine("2. Reflecting Activity");
             Console.WriteLine("3. Listing Activity");
-            Console.WriteLine("4. Exit");
-            Console.WriteLine("What would you like to do? (1-4)");
+            Console.WriteLine("4. Save Activity Log");
+            Console.WriteLine("5. View Activity Log");
+            Console.WriteLine("6. Exit");
+            Console.WriteLine("What would you like to do? (1-6)");
             input = Console.ReadLine();
 
             if (input == "1")
@@ -45,64 +48,113 @@ class Program
             }
             else if (input == "4")
             {
-                Console.WriteLine("Thank you for using the Mindfulness Program. Goodbye!");
+                Console.Write("Enter the filename to save to: ");
+                string filename = Console.ReadLine();
+                SaveLog(filename);
+            }
+            else if (input == "5")
+            {
+                Console.Write("Enter the filename to load from: ");
+                string filename = Console.ReadLine();
+                LoadLog(filename);
+                Console.WriteLine("--- Activity Log ---");
+                Console.WriteLine($"Breathing: {breathingCount} | Reflecting: {reflectingCount} | Listing: {listingCount}\n");
+            }
+            else if (input == "6")
+            {
+                Console.WriteLine("Exiting the program. Goodbye!");
+                break;
             }
             else
             {
                 Console.WriteLine("Invalid option. Please try again.");
             }
 
-        } while (input != "4");
+        } while (input != "6");
     }
 
-    static void SaveLog()
+    static void SaveLog(string outputFilename)
     {
-        using (StreamWriter outputFile = new StreamWriter(filename))
+        string fileToSave = string.IsNullOrWhiteSpace(outputFilename) ? filename : outputFilename;
+        using (StreamWriter outputFile = new StreamWriter(fileToSave))
         {
             outputFile.WriteLine($"Breathing,{breathingCount}");
             outputFile.WriteLine($"Reflecting,{reflectingCount}");
             outputFile.WriteLine($"Listing,{listingCount}");
         }
+
+        ShowCountDown(5);
+        Console.WriteLine("Saving activity log...");
+        Console.WriteLine("Activity log saved successfully!");
+    }
+
+    static void ShowCountDown(int seconds)
+    {
+        for (int i = seconds; i > 0; i--)
+        {
+            Console.Write($"{i}...");
+            Thread.Sleep(1000);
+        }
+        Console.WriteLine();
     }
 
     static void LoadLog()
     {
-     
-        if (File.Exists(filename))
+        LoadLog(filename);
+    }
+
+    static void LoadLog(string inputFilename)
+    {
+        string fileToLoad = string.IsNullOrWhiteSpace(inputFilename) ? filename : inputFilename;
+
+        if (!File.Exists(fileToLoad))
         {
-            string[] lines = File.ReadAllLines(filename);
+            return;
+        }
 
-            foreach (string line in lines)
+        string[] lines = File.ReadAllLines(fileToLoad);
+
+        foreach (string line in lines)
+        {
+            if (string.IsNullOrWhiteSpace(line))
             {
-                string[] parts = line.Split(',');
+                continue;
+            }
 
-                if (parts.Length == 2)
-                {
-                    string activity = parts[0];
-                    int count = int.Parse(parts[1]); 
-                    if (activity == "Breathing")
-                    {
-                        breathingCount = count;
-                    }
-                    else if (activity == "Reflecting")
-                    {
-                        reflectingCount = count;
-                    }
-                    else if (activity == "Listing")
-                    {
-                        listingCount = count;
-                    }
-                }
+            string[] parts = line.Split(',');
+            if (parts.Length < 2)
+            {
+                continue;
+            }
+
+            string key = parts[0].Trim();
+            if (!int.TryParse(parts[1].Trim(), out int count))
+            {
+                continue;
+            }
+
+            if (key == "Breathing")
+            {
+                breathingCount = count;
+            }
+            else if (key == "Reflecting")
+            {
+                reflectingCount = count;
+            }
+            else if (key == "Listing")
+            {
+                listingCount = count;
             }
         }
+        Console.WriteLine("Activity log loaded successfully.");
     }
     // EXCEEDING REQUIREMENTS:
-// To exceed the core requirements, I added a persistent activity tracker. 
-// The program keeps a running tally of how many times each mindfulness 
-// activity (Breathing, Reflecting, Listing) is completed. I implemented 
-// file I/O using System.IO to save these statistics to a "log.txt" file. 
-// When the program starts, it automatically reads the file to load the 
-// user's previous session data, and it updates/saves to the file every 
-// time an activity is successfully finished, ensuring their progress is 
-// never lost between runs.
+    // To exceed the core requirements, I added a persistent activity tracker. 
+    // The program keeps a running tally of how many times each mindfulness 
+    // activity (Breathing, Reflecting, Listing) is completed. I implemented 
+    // file I/O using System.IO to save these statistics to a "log.txt" file. 
+    // When the program starts, it automatically reads the file to load the 
+    // user's previous session data, and it updates/saves to the file every 
+    // time an activity is successfully finished, ensuring their progress is 
+    // never lost between runs.
 }
